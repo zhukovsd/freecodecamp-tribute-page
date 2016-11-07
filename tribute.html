@@ -6,20 +6,82 @@
     <title>Title</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap-toolkit.js"></script>
 
     <style>
         .no-padding {
             padding: 0 !important;
             margin: 0 !important;
         }
+
+        /*@media(max-width:767px) {*/
+            /*#test {*/
+                /*background-color: red;*/
+            /*}*/
+        /*}*/
+
+        /*@media(min-width:768px) {*/
+            /*#test {*/
+                /*background-color: green;*/
+            /*}*/
+        /*}*/
+
+        /*@media(min-width:992px) {*/
+            /*#test {*/
+                /*background-color: blue;*/
+            /*}*/
+        /*}*/
+
+        /*@media(min-width:1200px) {*/
+            /*#test {*/
+                /*background-color: magenta;*/
+            /*}*/
+        /*}*/
     </style>
 
     <script>
+        // http://stackoverflow.com/questions/14441456/how-to-detect-which-device-view-youre-on-using-twitter-bootstrap-api
+//        var findBootstrapEnvironment = function() {
+//            var envs = ['xs', 'sm', 'md', 'lg'];
+//
+//            var $el = $('<div>');
+//            $el.appendTo($('body'));
+//
+//            for (var i = envs.length - 1; i >= 0; i--) {
+//                var env = envs[i];
+//
+//                $el.addClass('hidden-'+env);
+//                if ($el.is(':hidden')) {
+//                    $el.remove();
+//                    return env;
+//                }
+//            }
+//        };
+
         $(document).ready(function() {
-            console.log('test');
-            console.log($("[class^='col-']").length);
-            $("[class^='col-']").addClass("no-padding");
+//            console.log('test');
+//            console.log($("[class^='col-']").length);
+            var i = 0;
+            $("[class^='col-']").addClass("no-padding").each(function(index, elem) {
+                $(elem).append("<div style='color: red; position: absolute; top: 0; left: 0;'>" + (i++) + "</div>");
+            });
+
+
+            $(".container-fluid").on("click", "[class^='col-']", function() {
+//                console.log(findBootstrapEnvironment());
+            });
+
+//            $("#test").data("after", );
+
+            $(window).resize(
+                ResponsiveBootstrapToolkit.changed(function(){
+//                        highlightBoxes();
+
+                    console.log('Current breakpoint:', ResponsiveBootstrapToolkit.current());
+                })
+            );
         });
     </script>
 </head>
@@ -38,8 +100,8 @@
                 <img src="cat.jpg" class="img-responsive" alt="Cute cat">
             </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+            <div id="test" class="col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px">
+
             </div>
 
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
@@ -50,6 +112,11 @@
                 <img src="cat.jpg" class="img-responsive" alt="Cute cat">
             </div>
 
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+            </div>
+        <!--</div>-->
+        <!--<div class="row">-->
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                 <img src="cat.jpg" class="img-responsive" alt="Cute cat">
             </div>
