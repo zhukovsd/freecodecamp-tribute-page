@@ -1,0 +1,37 @@
+#grid-container {
+    background-color: yellow;
+}
+
+/* xs (0 - 768) */
+@media(max-width:767px) {
+    #grid-container {
+        width: 100%;
+    }
+}
+
+/* sm (768 - 991) */
+@media(min-width:768px) {
+    #grid-container {
+        width: 768px;
+    }
+}
+
+/* sm (992 - 1199) */
+@media(min-width:992px) {
+    #grid-container {
+        width: 992px;
+    }
+}
+
+/* lg (1200+) */
+@media(min-width:1200px) {
+    #grid-container {
+        width: 1200px;
+    }
+}
+
+/*@media(min-width:1200px) {*/
+/*#test {*/
+/*background-color: magenta;*/
+/*}*/
+/*}*/
