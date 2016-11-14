@@ -33,3 +33,11 @@ var gridAdjustWholeRow = function(wholeRow) {
     var elem = $("[num='" + index + "']");
     wholeRow.insertAfter(elem);
 };
+
+$(document).ready(function() {
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            // alert("bottom!");
+        }
+    });
+});
