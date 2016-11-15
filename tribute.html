@@ -52,6 +52,10 @@
 
                     gridAdjustWholeRow($(".whole-row"));
 
+//                    console.log($(".head-image").css("width"));
+                    var headImage = $(".head-image");
+                    headImage.css("height", headImage.css("width"));
+
                     console.log('Current breakpoint: ', current);
                 }, 10)
             );
@@ -93,10 +97,10 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
                 <div class="head-image"></div>
             </div>
-            <div class="col-lg-10" style="display: flex; justify-content: center; align-items: center;">
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12" style="display: flex; justify-content: center; align-items: center;">
                 <!--<span style="display: inline-block; vertical-align: middle; line-height: 100%; ">Rock music is a genre of popular music that originated as "rock and roll" in the United States in the 1950s, and developed into a range of different styles in the 1960s and later, particularly in the United Kingdom and the United States.[1][2] It has its roots in 1940s' and 1950s' rock and roll, itself heavily influenced by blues, rhythm and blues and country music. Rock music also drew strongly on a number of other genres such as electric blues and folk, and incorporated influences from jazz, classical and other musical sources.</span>-->
                 <span>Rock music is a genre of popular music that originated as "rock and roll" in the United States in the 1950s, and developed into a range of different styles in the 1960s and later, particularly in the United Kingdom and the United States.[1][2] It has its roots in 1940s' and 1950s' rock and roll, itself heavily influenced by blues, rhythm and blues and country music. Rock music also drew strongly on a number of other genres such as electric blues and folk, and incorporated influences from jazz, classical and other musical sources.</span>
             </div>
