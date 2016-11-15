@@ -54,14 +54,21 @@
 
 /* center navbar content for xs */
 @media (min-width: 768px){
-    .navbar-nav{
-        float:none;
+    .navbar-nav {
+        float: none;
         margin: 0 auto;
         display: table;
         table-layout: fixed;
 
         /*display:         flex;*/
         /*flex-wrap: wrap;*/
+    }
+}
+
+@media(max-width:767px) {
+    .head-image {
+        width: 300px;
+        margin: auto auto 10px;
     }
 }
 
