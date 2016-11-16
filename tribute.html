@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet/less" type="text/css" href="style.less">
+    <link rel="stylesheet/less" type="text/css" href="less/style.less">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.min.js" type="text/javascript"></script>
@@ -18,29 +18,32 @@
     <script src="js/bootstrap-toolkit.js"></script>
     <script src="js/app.js"></script>
 
-    <style>
-        .no-padding {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-    </style>
-
     <script>
         $(document).ready(function() {
 //            console.log('test');
 //            console.log($("[class^='col-']").length);
             var i = 0;
             // set index and add label to each element
-            $("#grid-container").find("[class^='col-']").addClass("no-padding").each(function(index, elem) {
-                $(elem).attr("num", i);
+
+//            alert('wtf');
+
+            var gridContainer = $("#artist-grid-container");
+            gridContainer.find(".artist-grid-tile")/*.addClass("no-padding")*/.each(function(index, elem) {
+//                $(elem).attr("num", i);
                 $(elem).append("<div style='color: red; position: absolute; top: 0; left: 0;'>" + (i) + "</div>");
 
                 i++;
             });
 
-            $("#grid-container").on("click", "[class^='col-']", function() {
+            gridContainer.on("click", ".artist-grid-tile", function() {
+//                console.log('click ' + $(this).index(".artist-grid-tile"));
+
+                var index = $(this).index(".artist-grid-tile");
+                console.log("index = " + index);
+
 //                console.log(findBootstrapEnvironment());
-                $(".whole-row").data("after-num", $(this).attr("num"));
+//                $(".whole-row").data("after-num", $(this).attr("num"));
+                $(".whole-row").data("after-num", index);
 //                $(".whole-row").toggle(400);
                 gridAdjustWholeRow($(".whole-row"));
 
@@ -50,134 +53,135 @@
             $(".whole-row").data("after-num", 1);
 
             $(window).resize(
-                ResponsiveBootstrapToolkit.changed(function() {
+                    ResponsiveBootstrapToolkit.changed(function() {
 //                    highlightBoxes();
-                    var current = ResponsiveBootstrapToolkit.current();
+                        var current = ResponsiveBootstrapToolkit.current();
 //                    var rowWidth;
 
-                    gridAdjustWholeRow($(".whole-row"));
+                        gridAdjustWholeRow($(".whole-row"));
 
 //                    console.log($(".head-image").css("width"));
-                    var headImage = $(".head-image");
-                    headImage.css("height", headImage.css("width"));
+                        var headImage = $(".head-image");
+                        headImage.css("height", headImage.css("width"));
 
-                    console.log('Current breakpoint: ', current);
-                }, 10)
+                        console.log('Current breakpoint: ', current);
+                    }, 10)
             );
         });
     </script>
 </head>
 <body>
-    <!--<br><br><br><br><br><br>-->
+<!--<br><br><br><br><br><br>-->
 
-    <div class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-            <!--<div id="navbar">-->
-                <ul class="navbar-nav">
-                <!--<div style="line-height: 20px; margin-bottom: 10px; margin-top: 10px;">-->
-                    <!--<li><a href="https://github.com/zhukovsd">GitHub</a></li>-->
-                    <!--<li><a href="http://vk.com/zhukovsd">VK.com</a></li>-->
-
-                    <!--<button type="button" class="btn btn-default" style="line-height: 20px; margin-bottom: 10px; margin-top: 10px;>-->
-                        <!--<i class="fa fa-github">github</i>-->
-                    <!--</button>-->
-
-                    Coded by zhukovsd for FreeCodeCamp tribute challenge
-
-                    <a href="https://github.com/zhukovsd" style="margin-left: 5px; line-height: 50px; text-decoration: none;">
-                        <!--<i class="fa fa-github" style="margin-right: 3px;"></i>Github sources-->
-                        <i class="fa fa-github" style="margin-right: 3px;"></i><span class="hidden-xs">Github sources</span>
-                    </a>
-
-                    <a href="https://vk.com/zhukovsd" style="margin-left: 5px; text-decoration: none;">
-                        <i class="fa fa-vk" style="margin-right: 3px;"></i><span class="hidden-xs">VK profile</span>
-                    </a>
-                <!--</div>-->
-                </ul>
-            <!--</div>&lt;!&ndash;/.nav-collapse &ndash;&gt;-->
-        </div>
-    </div>
-
-    <h1 class="text-primary text-center">Tribute to rock music</h1>
-
+<div class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
-                <div class="head-image"></div>
-            </div>
-            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12" style="display: flex; justify-content: center; align-items: center;">
-                <!--<span style="display: inline-block; vertical-align: middle; line-height: 100%; ">Rock music is a genre of popular music that originated as "rock and roll" in the United States in the 1950s, and developed into a range of different styles in the 1960s and later, particularly in the United Kingdom and the United States.[1][2] It has its roots in 1940s' and 1950s' rock and roll, itself heavily influenced by blues, rhythm and blues and country music. Rock music also drew strongly on a number of other genres such as electric blues and folk, and incorporated influences from jazz, classical and other musical sources.</span>-->
-                <span>Rock music is a genre of popular music that originated as "rock and roll" in the United States in the 1950s, and developed into a range of different styles in the 1960s and later, particularly in the United Kingdom and the United States.[1][2] It has its roots in 1940s' and 1950s' rock and roll, itself heavily influenced by blues, rhythm and blues and country music. Rock music also drew strongly on a number of other genres such as electric blues and folk, and incorporated influences from jazz, classical and other musical sources.</span>
-            </div>
+        <!--<div id="navbar">-->
+        <ul class="navbar-nav">
+            <!--<div style="line-height: 20px; margin-bottom: 10px; margin-top: 10px;">-->
+            <!--<li><a href="https://github.com/zhukovsd">GitHub</a></li>-->
+            <!--<li><a href="http://vk.com/zhukovsd">VK.com</a></li>-->
+
+            <!--<button type="button" class="btn btn-default" style="line-height: 20px; margin-bottom: 10px; margin-top: 10px;>-->
+            <!--<i class="fa fa-github">github</i>-->
+            <!--</button>-->
+
+            Coded by zhukovsd for FreeCodeCamp tribute challenge
+
+            <a href="https://github.com/zhukovsd" style="margin-left: 5px; line-height: 50px; text-decoration: none;">
+                <!--<i class="fa fa-github" style="margin-right: 3px;"></i>Github sources-->
+                <i class="fa fa-github" style="margin-right: 3px;"></i><span class="hidden-xs">Github sources</span>
+            </a>
+
+            <a href="https://vk.com/zhukovsd" style="margin-left: 5px; text-decoration: none;">
+                <i class="fa fa-vk" style="margin-right: 3px;"></i><span class="hidden-xs">VK profile</span>
+            </a>
+            <!--</div>-->
+        </ul>
+        <!--</div>&lt;!&ndash;/.nav-collapse &ndash;&gt;-->
+    </div>
+</div>
+
+<h1 class="text-primary text-center">Tribute to rock music</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+            <div class="head-image"></div>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12" style="display: flex; justify-content: center; align-items: center;">
+            <!--<span style="display: inline-block; vertical-align: middle; line-height: 100%; ">Rock music is a genre of popular music that originated as "rock and roll" in the United States in the 1950s, and developed into a range of different styles in the 1960s and later, particularly in the United Kingdom and the United States.[1][2] It has its roots in 1940s' and 1950s' rock and roll, itself heavily influenced by blues, rhythm and blues and country music. Rock music also drew strongly on a number of other genres such as electric blues and folk, and incorporated influences from jazz, classical and other musical sources.</span>-->
+            <span>Rock music is a genre of popular music that originated as "rock and roll" in the United States in the 1950s, and developed into a range of different styles in the 1960s and later, particularly in the United Kingdom and the United States.[1][2] It has its roots in 1940s' and 1950s' rock and roll, itself heavily influenced by blues, rhythm and blues and country music. Rock music also drew strongly on a number of other genres such as electric blues and folk, and incorporated influences from jazz, classical and other musical sources.</span>
         </div>
     </div>
+</div>
 
-    <!--<blockquote>-->
+<!--<blockquote>-->
 
-        <!--<footer><cite>Indian Prime Minister Manmohan Singh</cite></footer>-->
-    <!--</blockquote>-->
+<!--<footer><cite>Indian Prime Minister Manmohan Singh</cite></footer>-->
+<!--</blockquote>-->
 
-    <!--<h1>1</h1>-->
-    <!--<h1>2</h1>-->
-    <!--<h1>3</h1>-->
-    <!--<h1>4</h1>-->
-    <!--<h1>5</h1>-->
+<!--<h1>1</h1>-->
+<!--<h1>2</h1>-->
+<!--<h1>3</h1>-->
+<!--<h1>4</h1>-->
+<!--<h1>5</h1>-->
 
-    <div id="grid-container" class="container">
-        <div class="row">
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+<div id="artist-grid-container" class="container">
+    <div class="row">
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+            <!--test-->
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px">
+        <div class="whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px">
 
-            </div>
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
         <!--</div>-->
         <!--<div class="row">-->
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+        </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            </div>
+        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
         </div>
     </div>
+</div>
 </body>
 </html>

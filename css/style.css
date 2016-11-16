@@ -1,10 +1,3 @@
-#grid-container {
-    background-color: yellow;
-
-    margin-top: 30px;
-    /*width: 80%;*/
-}
-
 /*!* xs (0 - 768) *!*/
 /*@media(max-width:767px) {*/
     /*#grid-container {*/
@@ -28,7 +21,7 @@
 
 /* lg (1200+) */
 @media(min-width:1200px) {
-    #grid-container {
+    #artist-grid-container {
         width: 1050px;
     }
 }
