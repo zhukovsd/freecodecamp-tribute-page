@@ -35,37 +35,35 @@
                 i++;
             });
 
+            var infoPanel = $("#artist-grid-info-panel");
             gridContainer.on("click", ".artist-grid-tile", function() {
-//                console.log('click ' + $(this).index(".artist-grid-tile"));
-
                 var index = $(this).index(".artist-grid-tile");
                 console.log("index = " + index);
 
-//                console.log(findBootstrapEnvironment());
-//                $(".whole-row").data("after-num", $(this).attr("num"));
-                $(".whole-row").data("after-num", index);
-//                $(".whole-row").toggle(400);
-                gridAdjustWholeRow($(".whole-row"));
+                infoPanel.data("under-num", index);
+
+                infoPanel.show();
+                gridAdjustWholeRow(infoPanel);
 
 //                $(this).css("inner-shadow", "0 0 10px rgba(255,255,255,0.5)");
             });
 
-            $(".whole-row").data("after-num", 1);
+//            $(".whole-row").data("under-num", 1);
 
             $(window).resize(
-                    ResponsiveBootstrapToolkit.changed(function() {
-//                    highlightBoxes();
-                        var current = ResponsiveBootstrapToolkit.current();
+                ResponsiveBootstrapToolkit.changed(function() {
+                    var current = ResponsiveBootstrapToolkit.current();
 //                    var rowWidth;
 
-                        gridAdjustWholeRow($(".whole-row"));
+                    // TODO fire this only if viewport was changed (xs/sm/md/lg)
+                    gridAdjustWholeRow($(".whole-row"));
 
-//                    console.log($(".head-image").css("width"));
-                        var headImage = $(".head-image");
-                        headImage.css("height", headImage.css("width"));
+                    // TODO call this in ready!
+                    var headImage = $(".head-image");
+                    headImage.css("height", headImage.css("width"));
 
-                        console.log('Current breakpoint: ', current);
-                    }, 10)
+                    console.log('Current breakpoint: ', current);
+                }, 10)
             );
         });
     </script>
@@ -128,59 +126,57 @@
 
 <div id="artist-grid-container" class="container">
     <div class="row">
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-            <!--test-->
-        </div>
-
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
-
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
-
-        <div class="whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px">
-
-        </div>
-
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
-
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
-
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
         <!--</div>-->
-        <!--<div class="row">-->
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
+
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
+
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
+
+        <div id="artist-grid-info-panel" class="callout callout-top whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px; display: none;">
+
         </div>
 
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
 
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
 
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
 
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
 
-        <div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <img src="cat.jpg" class="img-responsive" alt="Cute cat">
-        </div>
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
+
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
+
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
+
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
+
+        <!--<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">-->
+            <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
+        <!--</div>-->
     </div>
 </div>
 </body>

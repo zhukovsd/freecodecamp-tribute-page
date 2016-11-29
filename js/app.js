@@ -27,7 +27,7 @@ var gridRowByIndex = function(index) {
 };
 
 var gridAdjustWholeRow = function(wholeRow) {
-    var index = (gridRowByIndex(wholeRow.data("after-num")) + 1) * gridColCountByViewportSize() - 1;
+    var index = (gridRowByIndex(wholeRow.data("under-num")) + 1) * gridColCountByViewportSize() - 1;
     // console.log("insert after " + index);
 
     // var elem = $("[num='" + index + "']");
@@ -46,9 +46,9 @@ $(document).ready(function() {
     $.get("http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=rock&api_key=1ad6bea80327069ed4ecccf76fe34175&limit=36&format=json")
         .done(function(data) {
             $.each(data.topartists.artist, function(index, value) {
-                // $()
-                $($.parseHTML('<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2">' + value.name + '</div>'))
-                    .appendTo("#artist-grid-container .row");
+                $($.parseHTML('<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2"><img></div>'))
+                    .children(":first").addClass("img-responsive").css("width", "100%").attr("src", value.image[2]["#text"])
+                    .parent().appendTo("#artist-grid-container .row");
             });
         })
         .fail(function() {
