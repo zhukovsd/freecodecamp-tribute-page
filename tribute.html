@@ -45,7 +45,23 @@
                 infoPanel.show();
                 gridAdjustWholeRow(infoPanel);
 
-//                $(this).css("inner-shadow", "0 0 10px rgba(255,255,255,0.5)");
+                $(".artist-grid-tile").removeClass("callout callout-bottom");
+                $(this).addClass("callout callout-bottom");
+
+//                $(this).find(">:first-child").css("box-shadow", "inset 0px 0px 10px rgba(0,0,0,0.5)");
+
+//                $(".shadow-container").hide(0);
+//                $(this).find(".shadow-container").show(0);
+            });
+
+            gridContainer.on("mouseenter", ".artist-grid-tile", function() {
+//                alert("hi");
+                $(this).find(".artist-grid-tile-name-container").fadeIn(200);
+            });
+
+            gridContainer.on("mouseleave", ".artist-grid-tile", function() {
+//                alert("hi");
+                $(this).find(".artist-grid-tile-name-container").fadeOut(200);
             });
 
 //            $(".whole-row").data("under-num", 1);
@@ -138,7 +154,7 @@
             <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
         <!--</div>-->
 
-        <div id="artist-grid-info-panel" class="callout callout-top whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px; display: none;">
+        <div id="artist-grid-info-panel" class="whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px; display: none;">
 
         </div>
 
