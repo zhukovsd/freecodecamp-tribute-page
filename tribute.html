@@ -35,25 +35,6 @@
                 i++;
             });
 
-            var infoPanel = $("#artist-grid-info-panel");
-            gridContainer.on("click", ".artist-grid-tile", function() {
-                var index = $(this).index(".artist-grid-tile");
-                console.log("index = " + index);
-
-                infoPanel.data("under-num", index);
-
-                infoPanel.show();
-                gridAdjustWholeRow(infoPanel);
-
-                $(".artist-grid-tile").removeClass("callout callout-bottom");
-                $(this).addClass("callout callout-bottom");
-
-//                $(this).find(">:first-child").css("box-shadow", "inset 0px 0px 10px rgba(0,0,0,0.5)");
-
-//                $(".shadow-container").hide(0);
-//                $(this).find(".shadow-container").show(0);
-            });
-
             gridContainer.on("mouseenter", ".artist-grid-tile", function() {
 //                alert("hi");
                 $(this).find(".artist-grid-tile-name-container").fadeIn(200);
@@ -154,7 +135,7 @@
             <!--<img src="cat.jpg" class="img-responsive" alt="Cute cat">-->
         <!--</div>-->
 
-        <div id="artist-grid-info-panel" class="whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="height: 50px; display: none;">
+        <div id="artist-grid-info-panel" class="whole-row col-xs-12 col-sm12 col-md-12 col-lg-12" style="display: none;">
 
         </div>
 

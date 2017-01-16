@@ -65,7 +65,8 @@ $(document).ready(function() {
 
                 // parent.appendTo("#artist-grid-container .row").children(); // .wrapAll("<div class='wrap'></div>");
 
-                var tile = $($.parseHTML("<div class='artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2'></div>"));
+                var tile = $($.parseHTML("<div class='artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2'></div>"))
+                    .data("artist-name", value.name);
                     // .css('background', 'url(' + value.image[2]["#text"] + ')');
                 var img = $($.parseHTML("<img>")).addClass("img-responsive").css("width", "100%")
                     .attr("src", value.image[2]["#text"]);
@@ -78,7 +79,8 @@ $(document).ready(function() {
                 var nameBackground = $($.parseHTML("<div></div>"))
                     .addClass("artist-grid-tile-name-background");
 
-                var nameText = $($.parseHTML("<div class>test</div>"))
+                var nameText = $($.parseHTML("<div class></div>"))
+                    .text(value.name)
                     .addClass("artist-grid-tile-name-text");
 
                 nameBackground.appendTo(nameContainer);
@@ -91,6 +93,34 @@ $(document).ready(function() {
         .fail(function() {
             alert('fail');
         });
+
+    var gridContainer = $("#artist-grid-container");
+    var infoPanel = $("#artist-grid-info-panel");
+    gridContainer.on("click", ".artist-grid-tile", function() {
+        var index = $(this).index(".artist-grid-tile");
+        console.log("index = " + index);
+
+        infoPanel.data("under-num", index);
+
+        infoPanel.show();
+        gridAdjustWholeRow(infoPanel);
+
+        $(".artist-grid-tile").removeClass("callout callout-bottom");
+        $(this).addClass("callout callout-bottom");
+
+        $.get("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + $(this).data("artist-name")
+            + "&api_key=1ad6bea80327069ed4ecccf76fe34175&format=json")
+            .done(function(data) {
+                var bio = data.artist.bio.content;
+
+                if (bio.length > 500) {
+                    bio = bio.substr(0, 500) + "…";
+                }
+
+                // alert(bio);
+                infoPanel.text(bio);
+            });
+    });
 });
 
 //
