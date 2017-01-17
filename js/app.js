@@ -96,30 +96,50 @@ $(document).ready(function() {
 
     var gridContainer = $("#artist-grid-container");
     var infoPanel = $("#artist-grid-info-panel");
+    var infoPanelText = infoPanel.find(".info-panel-text");
+
     gridContainer.on("click", ".artist-grid-tile", function() {
         var index = $(this).index(".artist-grid-tile");
         console.log("index = " + index);
 
         infoPanel.data("under-num", index);
 
-        infoPanel.show();
         gridAdjustWholeRow(infoPanel);
-
         $(".artist-grid-tile").removeClass("callout callout-bottom");
         $(this).addClass("callout callout-bottom");
 
-        $.get("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + $(this).data("artist-name")
-            + "&api_key=1ad6bea80327069ed4ecccf76fe34175&format=json")
-            .done(function(data) {
-                var bio = data.artist.bio.content;
+        var curHeight = infoPanel.height();
 
-                if (bio.length > 500) {
-                    bio = bio.substr(0, 500) + "…";
-                }
+        infoPanelText.text("");
+        infoPanel.show();
 
-                // alert(bio);
-                infoPanel.text(bio);
-            });
+        var autoHeight = infoPanel.css('height', 'auto').height();
+        infoPanel.height(curHeight).animate(
+            {height: autoHeight}, 200, function(){ infoPanel.height('auto'); test(); }
+        );
+
+        var tile = $(this);
+        var test = function() {
+            $.get("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + tile.data("artist-name")
+                    + "&api_key=1ad6bea80327069ed4ecccf76fe34175&format=json")
+                .done(function (data) {
+                    var bio = data.artist.bio.content;
+
+                    if (bio.length > 500) {
+                        bio = bio.substr(0, 500) + "…";
+                    }
+
+                    var curHeight = infoPanel.height();
+
+                    // infoPanel.find(".info-panel-preloader").hide();
+                    infoPanelText.text(bio);
+
+                    var autoHeight = infoPanel.css('height', 'auto').height() + 10;
+                    infoPanel.height(curHeight).animate({height: autoHeight}, 200, function () {
+                        infoPanel.height('auto');
+                    });
+                });
+        };
     });
 });
 
