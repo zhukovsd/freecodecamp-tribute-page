@@ -36,41 +36,21 @@ var gridAdjustWholeRow = function(wholeRow) {
     wholeRow.insertAfter(elem);
 };
 
-$(document).ready(function() {
-    $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            // alert("bottom!");
-        }
-    });
+//
 
-    $.get("http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=rock&api_key=1ad6bea80327069ed4ecccf76fe34175&limit=36&format=json")
-        .done(function(data) {
-            $.each(data.topartists.artist, function(index, value) {
-                // $($.parseHTML('<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2"><img></div>'))
-                //     .children(":first").addClass("img-responsive").css("width", "100%").attr("src", value.image[2]["#text"])
-                //     .attr("z-index", -2)
-                //     .parent().appendTo("#artist-grid-container .row");
-
-                //
-
-                // var img = $($.parseHTML(
-                //     '<div class="artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2"><img></div>')
-                // )
-                //     .children(":first").addClass("img-responsive").css("width", "100%").attr("src", value.image[2]["#text"])
-                //     .attr("z-index", -2);
-                //
-                // var parent = img.parent().appendTo("#artist-grid-container .row");
-
-                // var shadowContainer = parent.children("div").addClass("shadow-container").css("display", "none");
-
-                // parent.appendTo("#artist-grid-container .row").children(); // .wrapAll("<div class='wrap'></div>");
-
+$(document).ready(function () {
+    var doRequestArtists = function (count, page) {
+        $.get(
+            "https://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=rock&api_key=1ad6bea80327069ed4ecccf76fe34175&" +
+            "limit=" + count + "&page=" + page + "&format=json"
+        ).done(function (data) {
+            $.each(data.topartists.artist, function (index, value) {
                 var tile = $($.parseHTML("<div class='artist-grid-tile col-xs-6 col-sm-4 col-md-3 col-lg-2'></div>"))
                     .data("artist-name", value.name);
-                    // .css('background', 'url(' + value.image[2]["#text"] + ')');
+                // .css('background', 'url(' + value.image[2]["#text"] + ')');
                 var img = $($.parseHTML("<img>")).addClass("img-responsive").css("width", "100%")
                     .attr("src", value.image[2]["#text"]);
-                    // .css("opacity", "0");
+                // .css("opacity", "0");
                 img.appendTo(tile);
 
                 var nameContainer = $($.parseHTML("<div></div>"))
@@ -89,38 +69,60 @@ $(document).ready(function() {
 
                 tile.appendTo("#artist-grid-container .row");
             });
-        })
-        .fail(function() {
-            alert('fail');
+        }).fail(function () {
+            // alert('fail');
         });
+    };
+
+    var page = 1;
+    doRequestArtists(36, page);
+
+    $(window).scroll(function () {
+        if (Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height()) {
+            console.log("scrolled to the bottom");
+            doRequestArtists(36, ++page);
+        }
+    });
 
     var gridContainer = $("#artist-grid-container");
+    var infoPanelContainer = $("#artist-grid-info-panel-container");
     var infoPanel = $("#artist-grid-info-panel");
-    var infoPanelText = infoPanel.find(".info-panel-text");
+    var infoPanelText = infoPanelContainer.find(".info-panel-text");
+
+    gridContainer.on("mouseenter", ".artist-grid-tile", function () {
+        $(this).find(".artist-grid-tile-name-container").fadeIn(200);
+    });
+
+    gridContainer.on("mouseleave", ".artist-grid-tile", function () {
+        $(this).find(".artist-grid-tile-name-container").fadeOut(200);
+    });
 
     gridContainer.on("click", ".artist-grid-tile", function() {
         var index = $(this).index(".artist-grid-tile");
         console.log("index = " + index);
 
-        infoPanel.data("under-num", index);
+        infoPanelContainer.data("under-num", index);
 
-        gridAdjustWholeRow(infoPanel);
+        gridAdjustWholeRow(infoPanelContainer);
         $(".artist-grid-tile").removeClass("callout callout-bottom");
         $(this).addClass("callout callout-bottom");
 
         var curHeight = infoPanel.height();
 
         infoPanelText.text("");
-        infoPanel.show();
+        infoPanelContainer.show();
 
         var autoHeight = infoPanel.css('height', 'auto').height();
         infoPanel.height(curHeight).animate(
-            {height: autoHeight}, 200, function(){ infoPanel.height('auto'); test(); }
+            {height: autoHeight}, 200, function () {
+                infoPanel.height('auto');
+                doRequestInfo();
+            }
         );
 
         var tile = $(this);
-        var test = function() {
-            $.get("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + tile.data("artist-name")
+        var doRequestInfo = function () {
+            $.get("https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + tile.data("artist-name")
                     + "&api_key=1ad6bea80327069ed4ecccf76fe34175&format=json")
                 .done(function (data) {
                     var bio = data.artist.bio.content;
@@ -131,7 +133,6 @@ $(document).ready(function() {
 
                     var curHeight = infoPanel.height();
 
-                    // infoPanel.find(".info-panel-preloader").hide();
                     infoPanelText.text(bio);
 
                     var autoHeight = infoPanel.css('height', 'auto').height() + 10;
@@ -141,6 +142,40 @@ $(document).ready(function() {
                 });
         };
     });
+
+    var lastViewport;
+    var headImage = $(".head-image");
+    var adjustHeadImage = function () {
+        if (window.innerWidth == 767) {
+            headImage.css("width", "300px").css("margin", "auto auto 10px");
+        } else {
+            headImage.css("width", "").css("margin", "");
+        }
+
+        headImage.css("height", headImage.css("width"));
+        console.log('adjusted');
+    };
+
+    adjustHeadImage();
+
+    $(window).resize(
+        ResponsiveBootstrapToolkit.changed(function () {
+            var current = ResponsiveBootstrapToolkit.current();
+
+            // fire this only if viewport was changed (xs/sm/md/lg)
+            if (current !== lastViewport) {
+                gridAdjustWholeRow($(".whole-row"));
+            }
+
+            // adjust every time for xs or if viewport size has changed
+            if ((current == "xs") || (current !== lastViewport)) {
+                adjustHeadImage();
+            }
+
+//                        console.log('Current breakpoint: ', current);
+            lastViewport = current;
+        }, 10)
+    );
 });
 
 //
