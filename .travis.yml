@@ -3,5 +3,5 @@ language: generic # don't install any environment
 script: bash ./deploy.sh
 env:
   global:
-  - ENCRYPTION_LABEL: "b35f2a15ea3d"
+  - ENCRYPTION_LABEL: "9661a58842e9"
   - COMMIT_AUTHOR_EMAIL: "zhukovsd@gmail.com"
