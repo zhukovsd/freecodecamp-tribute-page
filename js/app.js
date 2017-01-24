@@ -133,7 +133,6 @@ $(document).ready(function () {
 
                     var curHeight = infoPanel.height();
 
-                    // infoPanelContainer.find(".info-panel-preloader").hide();
                     infoPanelText.text(bio);
 
                     var autoHeight = infoPanel.css('height', 'auto').height() + 10;
