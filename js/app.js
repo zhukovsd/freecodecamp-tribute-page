@@ -156,7 +156,14 @@ $(document).ready(function () {
         console.log('adjusted');
     };
 
-    adjustHeadImage();
+    // hacky way to adjust image when
+    //var timerId = setTimeout(adjustHeadImage, 100);
+
+    $('<img/>').attr('src', 'https://s-media-cache-ak0.pinimg.com/originals/aa/e2/05/aae205b93223115aaf5eabc005251e2a.jpg').on('load', function() {
+        $(this).remove(); // prevent memory leaks as @benweet suggested
+        headImage.css('background-image', 'url(https://s-media-cache-ak0.pinimg.com/originals/aa/e2/05/aae205b93223115aaf5eabc005251e2a.jpg)');
+        adjustHeadImage();
+    });
 
     $(window).resize(
         ResponsiveBootstrapToolkit.changed(function () {

@@ -1,5 +1,5 @@
 #!/bin/bash
-cp tribute.html out/tribute.html
+cp index.html out/index.html
 
 mkdir -p out/less
 cp less/style.less out/less/style.less
